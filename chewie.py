@@ -2,7 +2,7 @@
 """bot for fielding wookieepedia queries"""
 from discord.ext import commands
 from config import token
-from wiki import wikia_summary
+from wiki import wikia_summary, wikia_link
 # commands start with / because having to hit shift is dumb
 bot = commands.Bot(command_prefix='/')
 
@@ -29,9 +29,16 @@ async def on_message(message):
     else:
         int1 = message.content.find('A wild')
         end = message.content.find(' appears!')
-        start = int1 + 6
+        start = int1 + 7
         alien = message.content[start:end]
+        alien_link = alien
+        try:
+            clean = alien.replace("'", "%27")
+            alien_link = clean
+        except IndexError:
+            pass
         summary = wikia_summary(alien)
-        await message.channel.send(summary)
+        more = summary + ' ' + wikia_link(alien_link)
+        await message.channel.send(more)
 
 bot.run(token)
