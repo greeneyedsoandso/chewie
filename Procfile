@@ -1,1 +1,1 @@
-worker: python bot/chewie.py
+worker: python chewie.py
