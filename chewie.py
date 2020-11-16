@@ -1,10 +1,11 @@
 # https://github.com/greeneyedsoandso/chewie
 """bot for fielding wookieepedia queries"""
+import os
 from discord.ext import commands
-from config import token
 from wiki import wikia_summary, wikia_link
 # commands start with / because having to hit shift is dumb
 bot = commands.Bot(command_prefix='/')
+token = os.getenv("DISCORD_BOT_TOKEN")
 
 
 @bot.event
