@@ -37,11 +37,13 @@ async def on_message(message):
             clean = alien.replace("'", "%27")
             alien_link = clean
         except IndexError:
-            try:
-                clean = alien.replace(" ", "_")
-                alien_link = clean
-            except IndexError:
-                pass
+            pass
+        try:
+            clean = alien.replace(" ", "_")
+            alien = clean
+            alien_link = clean
+        except IndexError:
+            pass
         summary = wikia_summary(alien)
         more = summary + ' ' + wikia_link(alien_link)
         await message.channel.send(more)
