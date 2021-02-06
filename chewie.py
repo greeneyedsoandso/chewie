@@ -54,14 +54,13 @@ async def test(ctx, arg):
 @bot.command(name='fate', help='Follow with the number of dice to roll. Example /fate 4')
 async def dice(ctx, n_dice):
     """Rolls FATE dice"""
-    if isinstance(n_dice, int):
-        await ctx.send(f"{str(ctx.message.author)} throws the dice and gets...")
-        result = calc_dice(n_dice)
-        emojis = dice_to_emoji(result[0])
-        await ctx.send(f"{emojis}")
-        await ctx.send(f"Total result: {str(result[1])}")
-    else:
-        await ctx.send("Please enter an integer number of dices.")
+    await ctx.send(f"{str(ctx.message.author)} rolls {n_dice} dice.")
+    result = calc_dice(n_dice)
+    emojis = dice_to_emoji(result[0])
+    await ctx.send(f"{emojis}")
+    await ctx.send(f"Total result: {str(result[1])}")
+    # else:
+    #     await ctx.send("Please enter a number of dice to roll.")
 
 
 @bot.listen('on_message')
