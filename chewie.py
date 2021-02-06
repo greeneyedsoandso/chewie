@@ -25,11 +25,10 @@ async def greeting(ctx, args):
 # an extra-dumb test: if you type '$test something` Chewie says `something`
 async def test(ctx, arg):
     await ctx.send(arg)
-    await bot.process_commands(arg)
 
 
-@bot.event
-async def on_message(message):
+@bot.listen('on_message')
+async def look_up(message):
     # A wild Xexto appears!
     if message.content.find(' appears!') == -1:
         return
