@@ -53,6 +53,6 @@ async def on_message(message):
         summary = wikia_summary(alien)
         more = summary + ' ' + wikia_link(alien_link)
         await message.channel.send(more)
-        await bot.process_commands(message)
+    await bot.process_commands(message)
 
 bot.run(token)
