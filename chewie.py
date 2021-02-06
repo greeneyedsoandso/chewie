@@ -25,6 +25,7 @@ async def greeting(ctx, args):
 # an extra-dumb test: if you type '$test something` Chewie says `something`
 async def test(ctx, arg):
     await ctx.send(arg)
+    await bot.process_commands(arg)
 
 
 @bot.event
@@ -53,6 +54,6 @@ async def on_message(message):
         summary = wikia_summary(alien)
         more = summary + ' ' + wikia_link(alien_link)
         await message.channel.send(more)
-    await bot.process_commands(message)
+
 
 bot.run(token)
