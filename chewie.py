@@ -22,7 +22,7 @@ async def greeting(ctx, args):
 
 
 @bot.command()
-# an extra-dumb test to make sure command works
+# an extra-dumb test: if you type '$test something` Chewie says `something`
 async def test(ctx, arg):
     await ctx.send(arg)
 
