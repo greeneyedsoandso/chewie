@@ -1,11 +1,35 @@
 # https://github.com/greeneyedsoandso/chewie
 """bot for fielding wookieepedia queries"""
 import os
+from numpy import random
 from discord.ext import commands
 from wiki import wikia_summary, wikia_link
+
 # commands start with / because having to hit shift is dumb
-bot = commands.Bot(command_prefix='$')
+bot = commands.Bot(command_prefix='/')
 token = os.getenv("DISCORD_BOT_TOKEN")
+
+
+# FATE dice utility functions
+
+
+def calc_dice(n):
+    results = list(random.choice(["+", "-", " "], n))
+    total = results.count("+") - results.count("-")
+    return results, total
+
+
+def dice_to_emoji(dice_list):
+    rt_emojis = []
+    for die in dice_list:
+        if die == "+":
+            rt_emojis.append("<:pluskey:415985383742898177>")
+        elif die == "-":
+            rt_emojis.append("<:minuskey:415985384011464715>")
+        elif die == " ":
+            rt_emojis.append("<:voidkey:415985887604899840>")
+    return ' '.join(rt_emojis)
+# Bot actions
 
 
 @bot.event
@@ -21,10 +45,23 @@ async def greeting(ctx, args):
     await ctx.send(hello)
 
 
-@bot.command()
+@bot.command(help='Dumb test that repeats a word you type')
 # an extra-dumb test: if you type '$test something` Chewie says `something`
 async def test(ctx, arg):
     await ctx.send(arg)
+
+
+@bot.command(name='fate', help='Follow with the number of dice to roll. Example /fate 4')
+async def dice(ctx, n_dice):
+    """Rolls FATE dice"""
+    if isinstance(n_dice, int):
+        await ctx.send(f"{str(ctx.message.author)} throws the dice and gets...")
+        result = calc_dice(n_dice)
+        emojis = dice_to_emoji(result[0])
+        await ctx.send(f"{emojis}")
+        await ctx.send(f"Total result: {str(result[1])}")
+    else:
+        await ctx.send("Please enter an integer number of dices.")
 
 
 @bot.listen('on_message')
