@@ -4,7 +4,7 @@ import os
 from discord.ext import commands
 from wiki import wikia_summary, wikia_link
 # commands start with / because having to hit shift is dumb
-bot = commands.Bot(command_prefix='/')
+bot = commands.Bot(command_prefix='$')
 token = os.getenv("DISCORD_BOT_TOKEN")
 
 
@@ -19,6 +19,12 @@ async def on_ready():
 async def greeting(ctx, args):
     hello = f'Hello {args}!'
     await ctx.send(hello)
+
+
+@bot.command()
+# an extra-dumb test to make sure command works
+async def test(ctx, arg):
+    await ctx.send(arg)
 
 
 @bot.event
