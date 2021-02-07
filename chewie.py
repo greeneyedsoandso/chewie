@@ -59,7 +59,7 @@ async def dice(ctx, n_dice):
     # await ctx.send(f"{str(ctx.message.author)} rolls {n_dice} dice.\n
     # {emojis}\nTotal result: {str(result[1])}")
     await ctx.send(f"{str(ctx.message.author)} rolls {n_dice} dice.\n"
-                   f"Total result: {str(result[1])}")
+                   f"Total result: {result[1]}")
     # else:
     #     await ctx.send("Please enter a number of dice to roll.")
 
