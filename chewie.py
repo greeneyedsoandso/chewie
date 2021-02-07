@@ -29,6 +29,14 @@ def dice_to_emoji(dice_list):
         elif die == " ":
             rt_emojis.append("<:voidkey:807768315635826718>")
     return ' '.join(rt_emojis)
+
+
+def grammar(result):
+    if result == 1:
+        roll_text = f"rolls {result} die."
+    else:
+        roll_text = f"rolls {result} dice."
+    return roll_text
 # Bot actions
 
 
@@ -57,12 +65,10 @@ async def dice(ctx, n_dice):
     result = calc_dice(int(n_dice))
     emojis = dice_to_emoji(result[0])
     user_id = ctx.message.author
+    roll_text = grammar(result)
     # user_id = ctx.message.author.display_name
     # player = user_id.commands.clean_content(use_nicknames=True)
-    if result == 1:
-        roll_text = f"rolls {n_dice} die."
-    else:
-        roll_text = f"rolls {n_dice} dice."
+
     await ctx.send(f"{str(user_id)} {roll_text}\n"
                    f"{emojis}\nTotal result: {str(result[1])}")
 
