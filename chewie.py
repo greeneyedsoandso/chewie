@@ -54,7 +54,7 @@ async def test(ctx, arg):
 @bot.command(name='fate', help='Follow with the number of dice to roll. Example /fate 4')
 async def dice(ctx, n_dice):
     """Rolls FATE dice"""
-    result = calc_dice(n_dice)
+    result = calc_dice(int(n_dice))
     # emojis = dice_to_emoji(result[0])
     # await ctx.send(f"{str(ctx.message.author)} rolls {n_dice} dice.\n
     # {emojis}\nTotal result: {str(result[1])}")
