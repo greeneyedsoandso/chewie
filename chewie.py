@@ -64,9 +64,9 @@ async def dice(ctx, n_dice):
     """Rolls FATE dice"""
     result = calc_dice(int(n_dice))
     emojis = dice_to_emoji(result[0])
-    user_id = ctx.message.author
+    # user_id = ctx.message.author
     roll_text = grammar(int(n_dice))
-    # user_id = ctx.message.author.display_name
+    user_id = ctx.message.author.display_name
     # player = user_id.commands.clean_content(use_nicknames=True)
 
     await ctx.send(f"{str(user_id)} {roll_text}\n"
