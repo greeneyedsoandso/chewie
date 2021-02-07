@@ -23,11 +23,11 @@ def dice_to_emoji(dice_list):
     rt_emojis = []
     for die in dice_list:
         if die == "+":
-            rt_emojis.append("<:pluskey:415985383742898177>")
+            rt_emojis.append("<:pluskey:807768315669643314>")
         elif die == "-":
-            rt_emojis.append("<:minuskey:415985384011464715>")
+            rt_emojis.append("<:minuskey:807768315577237595>")
         elif die == " ":
-            rt_emojis.append("<:voidkey:415985887604899840>")
+            rt_emojis.append("<:voidkey:807768315635826718>")
     return ' '.join(rt_emojis)
 # Bot actions
 
