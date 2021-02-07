@@ -57,12 +57,12 @@ async def dice(ctx, n_dice):
     result = calc_dice(int(n_dice))
     emojis = dice_to_emoji(result[0])
     user_id = ctx.message.author
-    player = user_id.commands.clean_content(use_nicknames=True)
+    # player = user_id.commands.clean_content(use_nicknames=True)
     if result == 1:
-        await ctx.send(f"{str(player)} rolls {n_dice} die.\n"
+        await ctx.send(f"{str(user_id)} rolls {n_dice} die.\n"
                        f"{emojis}\nTotal result: {str(result[1])}")
     else:
-        await ctx.send(f"{str(player)} rolls {n_dice} dice.\n"
+        await ctx.send(f"{str(user_id)} rolls {n_dice} dice.\n"
                        f"{emojis}\nTotal result: {str(result[1])}")
 
 
