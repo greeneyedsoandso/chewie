@@ -14,8 +14,14 @@ token = os.getenv("DISCORD_BOT_TOKEN")
 
 
 def calc_dice(n):
-    results = list(random.choice(["+", "-", " "], n))
-    total = results.count("+") - results.count("-")
+    str_n = str(n)
+    if str_n.isnumeric():
+        results = list(random.choice(["+", "-", " "], int(n)))
+        total = results.count("+") - results.count("-")
+    elif "+" in str_n:
+        n_dice, bonus = n.split("+")
+        results = list(random.choice(["+", "-", " "], int(n_dice)))
+        total = results.count("+") - results.count("-") + int(bonus)
     return results, total
 
 
@@ -31,11 +37,18 @@ def dice_to_emoji(dice_list):
     return ' '.join(rt_emojis)
 
 
-def grammar(result):
-    if result == 1:
-        roll_text = f"rolls {result} die."
+def grammar(user_input):
+    if user_input.isnumeric():
+        if user_input == '1':
+            roll_text = f"rolls {user_input} die."
+        else:
+            roll_text = f"rolls {user_input} dice."
     else:
-        roll_text = f"rolls {result} dice."
+        n_dice, bonus = user_input.split('+')
+        if n_dice == '1':
+            roll_text = f"rolls {n_dice} die + {bonus}."
+        else:
+            roll_text = f"rolls {n_dice} dice + {bonus}."
     return roll_text
 # Bot actions
 
@@ -62,10 +75,10 @@ async def test(ctx, arg):
 @bot.command(name='fate', help='Follow with the number of dice to roll. Example /fate 4')
 async def dice(ctx, n_dice):
     """Rolls FATE dice"""
-    result = calc_dice(int(n_dice))
+    result = calc_dice(n_dice)
     emojis = dice_to_emoji(result[0])
     # user_id = ctx.message.author
-    roll_text = grammar(int(n_dice))
+    roll_text = grammar(n_dice)
     user_id = ctx.message.author.display_name
     # player = user_id.commands.clean_content(use_nicknames=True)
 
