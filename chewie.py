@@ -72,6 +72,41 @@ def grammar(user_input):
         else:
             roll_text = f"rolls {n_dice} dice + {bonus}."
     return roll_text
+
+
+fate_points = {}
+
+
+def character_check(character, dictionary):
+    if character in dictionary:
+        return True
+    return False
+
+
+def value_check(character, dictionary):
+    if int(dictionary[character]) < 1:
+        return False
+    return True
+
+
+def fate_points_add(character, dictionary):
+    if character_check(character, dictionary):
+        new_total = int(dictionary[character]) + 1
+        dictionary[character] = str(new_total)
+    else:
+        dictionary[character] = '1'
+        return False
+    return True
+
+
+def fate_points_use(character, dictionary):
+    if character_check(character, dictionary):
+        if value_check(character, dictionary):
+            new_total = int(dictionary[character]) - 1
+            dictionary[character] = str(new_total)
+            return True
+        return False
+    return False
 # Bot actions
 
 
@@ -110,13 +145,17 @@ async def dice(ctx, n_dice):
 @bot.command(name='+fp', help='Grants a Fate point to the named character. Example: /+fp Han')
 async def add_fate_point(ctx, character):
     """Adds Fate point to character"""
+    fate_points_add(character, fate_points)
     await ctx.send(f"***{character}*** added one Fate point")
 
 
 @bot.command(name='-fp', help='Named character uses a Fate point. Example: /-fp Han')
 async def use_fate_point(ctx, character):
     """Removes Fate point from character"""
-    await ctx.send(f"***{character}*** used one Fate point")
+    if fate_points_use(character, fate_points):
+        await ctx.send(f"***{character}*** used one Fate point")
+    else:
+        await ctx.send(f"***{character}*** does not have any Fate points")
 
 
 @bot.listen('on_message')
