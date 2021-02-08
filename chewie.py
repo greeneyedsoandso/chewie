@@ -160,7 +160,7 @@ async def use_fate_point(ctx, character):
 
 @bot.command(name='list', help='Shows list of characters and Fate point totals')
 async def show_list(ctx):
-    """Adds Fate point to character"""
+    """Lists characters"""
     report = [f'| {key:<20s} | ${value:<19.2f} |' for key, value in fate_points.items()]
     character = "Character"
     fate_point = 'Fate Points'
