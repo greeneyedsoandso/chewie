@@ -161,11 +161,11 @@ async def use_fate_point(ctx, character):
 @bot.command(name='list', help='Shows list of characters and Fate point totals')
 async def show_list(ctx):
     """Lists characters"""
-    # report = [f'| {key:<20s} | ${value:<19.2f} |' for key, value in fate_points.items()]
+    report = [f'| {key} | {value} |' for key, value in fate_points.items()]
     character = "Character"
     fate_point = 'Fate Points'
     # await ctx.send(f"***{character:<20s}*** | ***{fate_point:<19.2f}***\n{*report,}")
-    await ctx.send(f"***{character}*** | ***{fate_point}***")
+    await ctx.send(f"***{character}*** | ***{fate_point}***\n{*report,}")
 
 
 @bot.listen('on_message')
