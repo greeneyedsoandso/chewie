@@ -101,7 +101,7 @@ async def dice(ctx, n_dice):
     emojis = dice_to_emoji(result[0])
     roll_text = grammar(n_dice)
     user_id = ctx.message.author.display_name
-    ladder_level = ladder_text(result[1], ladders)
+    ladder_level = ladder_text(str(result[1]), ladders)
     await ctx.send(f"{str(user_id)} {roll_text}\n"
                    f"{emojis}\nTotal result: {str(result[1])}, {ladder_level}")
 
