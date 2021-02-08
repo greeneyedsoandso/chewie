@@ -12,18 +12,18 @@ token = os.getenv("DISCORD_BOT_TOKEN")
 
 # FATE dice utility functions
 ladders = {"Olympian": "Olympian",
-          "8": "Legendary",
-          "7": "Epic",
-          "6": "Fantastic",
-          "5": "Superb",
-          "4": "Great",
-          "3": "Good",
-          "2": "Fair",
-          "1": "Average",
-          "0": "Mediocre",
-          "-1": "Poor",
-          "-2": "Terrible",
-          "Tragedy": "Tragedy"}
+           "8": "Legendary",
+           "7": "Epic",
+           "6": "Fantastic",
+           "5": "Superb",
+           "4": "Great",
+           "3": "Good",
+           "2": "Fair",
+           "1": "Average",
+           "0": "Mediocre",
+           "-1": "Poor",
+           "-2": "Terrible",
+           "Tragedy": "Tragedy"}
 
 
 def ladder_text(success_count, ladder):
@@ -94,7 +94,8 @@ async def test(ctx, arg):
     await ctx.send(arg)
 
 
-@bot.command(name='fate', help='Roll Fate dice and optional bonus. Examples: /fate 4 or /fate 4+1')
+@bot.command(name='fate', help='Roll Fate dice and optional modifier. Examples: /fate 4 or /fate '
+                               '4+1 or /fate 4+-2')
 async def dice(ctx, n_dice):
     """Rolls FATE dice"""
     result = calc_dice(n_dice)
@@ -102,8 +103,8 @@ async def dice(ctx, n_dice):
     roll_text = grammar(n_dice)
     user_id = ctx.message.author.display_name
     ladder_level = ladder_text(str(result[1]), ladders)
-    await ctx.send(f"{str(user_id)} {roll_text}\n"
-                   f"{emojis}\nTotal result: {str(result[1])}, {ladder_level}")
+    await ctx.send(f"***{str(user_id)}*** {roll_text}\n"
+                   f"{emojis}\nTotal result: {str(result[1])}, **{ladder_level}**")
 
 
 @bot.listen('on_message')
