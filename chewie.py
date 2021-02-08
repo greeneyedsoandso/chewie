@@ -3,6 +3,7 @@
 import os
 from numpy import random
 from discord.ext import commands
+from discord import Embed
 from wiki import wikia_summary, wikia_link
 
 # commands start with / because having to hit shift is dumb
@@ -161,11 +162,10 @@ async def use_fate_point(ctx, character):
 @bot.command(name='list', help='Shows list of characters and Fate point totals')
 async def show_list(ctx):
     """Lists characters"""
-    report = [f'| {key} | {value} |' for key, value in fate_points.items()]
-    character = "Character"
-    fate_point = 'Fate Points'
-    # await ctx.send(f"***{character:<20s}*** | ***{fate_point:<19.2f}***\n{*report,}")
-    await ctx.send(f"***{character}*** | ***{fate_point}***\n{*report,}")
+    embed = Embed(title=f"__**Characters**__", color=0x03f8fc)
+    for key, value in fate_points:  # process embed
+        embed.add_field(name=f'**{key}**', value=f'Fate points: {value}\n', inline=True)
+    await ctx.send(embed=embed)
 
 
 @bot.listen('on_message')
