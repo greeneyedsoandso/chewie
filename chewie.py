@@ -162,9 +162,11 @@ async def use_fate_point(ctx, character):
 @bot.command(name='list', help='Shows list of characters and Fate point totals')
 async def show_list(ctx):
     """Lists characters"""
-    embed = Embed(title=f"__**Characters**__", color=0x03f8fc)
+    embed = Embed(title=f"__**Characters**__", color=0x0047ab)
     for key, value in fate_points:  # process embed
-        embed.add_field(name=f'**{key}**', value=f'Fate points: {value}\n', inline=True)
+        embed.add_field(name=f'**{key}**',
+                        value=f'> Fate points: {value}\n',
+                        inline=False)
     await ctx.send(embed=embed)
 
 
