@@ -107,6 +107,18 @@ async def dice(ctx, n_dice):
                    f"{emojis}\nTotal result: {str(result[1])}, **{ladder_level}**")
 
 
+@bot.command(name='+fp', help='Grants a Fate point to the named character. Example: /+fp Han')
+async def add_fate_point(ctx, character):
+    """Adds Fate point to character"""
+    await ctx.send(f"***{character}*** added one Fate point")
+
+
+@bot.command(name='-fp', help='Named character uses a Fate point. Example: /-fp Han')
+async def use_fate_point(ctx, character):
+    """Removes Fate point from character"""
+    await ctx.send(f"***{character}*** used one Fate point")
+
+
 @bot.listen('on_message')
 async def look_up(message):
     # A wild Xexto appears!
