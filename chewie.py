@@ -164,7 +164,7 @@ async def show_list(ctx):
     report = [f'| {key:<20s} | ${value:<19.2f} |' for key, value in fate_points.items()]
     character = "Character"
     fate_point = 'Fate Points'
-    await ctx.send(f"***{character:<20s}*** | ***{fate_point:<19.2f}\n{*report,}")
+    await ctx.send(f"***{character:<20s}*** | ***{fate_point:<19.2f}***\n{*report,}")
 
 
 @bot.listen('on_message')
