@@ -158,6 +158,15 @@ async def use_fate_point(ctx, character):
         await ctx.send(f"***{character}*** does not have any Fate points")
 
 
+@bot.command(name='list', help='Shows list of characters and Fate point totals')
+async def show_list(ctx):
+    """Adds Fate point to character"""
+    report = [f'| {key:<20s} | ${value:<19.2f} |' for key, value in fate_points.items()]
+    character = "Character"
+    fate_point = 'Fate Points'
+    await ctx.send(f"***{character:<20s}*** | ***{fate_point:<19.2f}\n{*report,}")
+
+
 @bot.listen('on_message')
 async def look_up(message):
     # A wild Xexto appears!
