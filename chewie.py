@@ -159,10 +159,20 @@ async def use_fate_point(ctx, character):
         await ctx.send(f"***{character}*** does not have any Fate points")
 
 
-@bot.command(name='list', help='Shows list of characters and Fate point totals')
+@bot.command(name='points', help='Shows current Fate points for the named character. '
+                                 'Example: /points Han')
+async def current_points(ctx, character):
+    """Adds Fate point to character"""
+    await ctx.send(f"Current Fate points for ***{character}***:\n {fate_points[character]}")
+
+
+@bot.command(name='list', help='BROKEN: Shows list of characters and Fate point totals')
 async def show_list(ctx):
     """Lists characters"""
     embed = Embed(title=f"__**Characters**__", color=0x0047ab)
+    # ToDo: something is wrong here, i think it doesn't like processing the dictionary? Try making
+    #  a hardcoded version with one value to see if the formatting is working? what if we did an
+    #  individual check instead of calling up the full table?
     for key, value in fate_points:  # process embed
         embed.add_field(name=f'**{key}**',
                         value=f'> Fate points: {value}\n',
