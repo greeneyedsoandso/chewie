@@ -130,6 +130,28 @@ async def test(ctx, arg):
     await ctx.send(arg)
 
 
+@bot.command(name='make', help='Adds character to Fate point tracker. '
+                               'Example: /make Han')
+async def make(ctx, character):
+    """Adds character to tracking"""
+    if character_check(character, fate_points):
+        await ctx.send(f"***{character}*** was here all along.")
+    elif not character_check(character, fate_points):
+        fate_points[character] = '0'
+        await ctx.send(f"Welcome, ***{character}***.")
+
+
+@bot.command(name='kill', help='Removes character from Fate point tracker. '
+                               'Example: /kill Han')
+async def kill(ctx, character):
+    """Removes character from tracking"""
+    if character_check(character, fate_points):
+        fate_points.pop(character)
+        await ctx.send(f"Goodbye, ***{character}***.")
+    elif not character_check(character, fate_points):
+        await ctx.send(f"***{character}***? Never heard of them.")
+
+
 @bot.command(name='fate', help='Roll Fate dice and optional modifier. Examples: /fate 4 or /fate '
                                '4+1 or /fate 4+-2')
 async def dice(ctx, n_dice):
@@ -163,7 +185,7 @@ async def use_fate_point(ctx, character):
                                  'Example: /points Han')
 async def current_points(ctx, character):
     """Adds Fate point to character"""
-    await ctx.send(f"Current Fate points for ***{character}***:\n {fate_points[character]}")
+    await ctx.send(f"Current Fate points for ***{character}***: **{fate_points[character]}**")
 
 
 @bot.command(name='list', help='BROKEN: Shows list of characters and Fate point totals')
