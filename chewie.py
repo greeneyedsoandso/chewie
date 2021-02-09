@@ -95,7 +95,6 @@ def fate_points_add(character, dictionary):
         new_total = int(dictionary[character]) + 1
         dictionary[character] = str(new_total)
     else:
-        dictionary[character] = '1'
         return False
     return True
 
@@ -168,8 +167,10 @@ async def dice(ctx, n_dice):
 @bot.command(name='+fp', help='Grants a Fate point to the named character. Example: /+fp Han')
 async def add_fate_point(ctx, character):
     """Adds Fate point to character"""
-    fate_points_add(character, fate_points)
-    await ctx.send(f"***{character}*** added one Fate point")
+    if fate_points_add(character, fate_points):
+        await ctx.send(f"***{character}*** added one Fate point")
+    else:
+        await ctx.send(f"***{character}***? Typo? Or did you need to /make?")
 
 
 @bot.command(name='-fp', help='Named character uses a Fate point. Example: /-fp Han')
@@ -178,28 +179,34 @@ async def use_fate_point(ctx, character):
     if fate_points_use(character, fate_points):
         await ctx.send(f"***{character}*** used one Fate point")
     else:
-        await ctx.send(f"***{character}*** does not have any Fate points")
+        if character_check(character, fate_points):
+            await ctx.send(f"***{character}*** does not have any Fate points")
+        else:
+            await ctx.send(f"***{character}***? Typo?")
 
 
 @bot.command(name='points', help='Shows current Fate points for the named character. '
                                  'Example: /points Han')
 async def current_points(ctx, character):
     """Adds Fate point to character"""
-    await ctx.send(f"Current Fate points for ***{character}***: **{fate_points[character]}**")
+    if character_check(character, fate_points):
+        await ctx.send(f"Current Fate points for ***{character}***: **{fate_points[character]}**")
+    else:
+        await ctx.send(f"***{character}***? Never heard of them.")
 
 
-@bot.command(name='list', help='BROKEN: Shows list of characters and Fate point totals')
-async def show_list(ctx):
-    """Lists characters"""
-    embed = Embed(title=f"__**Characters**__", color=0x0047ab)
-    # ToDo: something is wrong here, i think it doesn't like processing the dictionary? Try making
-    #  a hardcoded version with one value to see if the formatting is working? what if we did an
-    #  individual check instead of calling up the full table?
-    for key, value in fate_points:  # process embed
-        embed.add_field(name=f'**{key}**',
-                        value=f'> Fate points: {value}\n',
-                        inline=False)
-    await ctx.send(embed=embed)
+# @bot.command(name='list', help='BROKEN: Shows list of characters and Fate point totals')
+# async def show_list(ctx):
+#     """Lists characters"""
+#     embed = Embed(title=f"__**Characters**__", color=0x0047ab)
+#     # ToDo: something is wrong here, i think it doesn't like processing the dictionary? Try making
+#     #  a hardcoded version with one value to see if the formatting is working? what if we did an
+#     #  individual check instead of calling up the full table?
+#     for key, value in fate_points:  # process embed
+#         embed.add_field(name=f'**{key}**',
+#                         value=f'> Fate points: {value}\n',
+#                         inline=False)
+#     await ctx.send(embed=embed)
 
 
 @bot.listen('on_message')
