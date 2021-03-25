@@ -37,17 +37,15 @@ def ladder_text(success_count, ladder):
 
 
 def calc_dice(n):
-    str_n = str("4"+n)
-    if str_n.isnumeric():
-        results = list(random.choice(["+", "-", " "], int(n)))
+    str_n = str(n)
+    results = list(random.choice(["+", "-", " "], 4))
+    if str_n == '':
         total = results.count("+") - results.count("-")
     elif "+" in str_n:
         n_dice, bonus = n.split("+")
-        results = list(random.choice(["+", "-", " "], int(n_dice)))
         total = results.count("+") - results.count("-") + int(bonus)
     elif "-" in str_n:
         n_dice, negative = n.split("-")
-        results = list(random.choice(["+", "-", " "], int(n_dice)))
         total = results.count("+") - results.count("-") - int(negative)
     return results, total
 
