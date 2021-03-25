@@ -76,7 +76,7 @@ def grammar(user_input):
             else:
                 roll_text = f"rolls {n_dice} dice + {bonus}."
         except ValueError:
-            bonus = user_input[1:-1]
+            bonus = user_input[1:]
             roll_text = f"rolls 4 dice + {bonus}."
     elif "-" in user_input:
         try:
@@ -86,7 +86,7 @@ def grammar(user_input):
             else:
                 roll_text = f"rolls {n_dice} dice - {negative}."
         except ValueError:
-            negative = user_input[1:-1]
+            negative = user_input[1:]
             roll_text = f"rolls 4 dice - {negative}."
     return roll_text
 
