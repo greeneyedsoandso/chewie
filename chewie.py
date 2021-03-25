@@ -68,12 +68,26 @@ def grammar(user_input):
             roll_text = f"rolls {user_input} die."
         else:
             roll_text = f"rolls {user_input} dice."
-    else:
-        n_dice, bonus = user_input.split('+')
-        if n_dice == '1':
-            roll_text = f"rolls {n_dice} die + {bonus}."
-        else:
-            roll_text = f"rolls {n_dice} dice + {bonus}."
+    elif "+" in user_input:
+        try:
+            n_dice, bonus = user_input.split('+')
+            if n_dice == '1':
+                roll_text = f"rolls {n_dice} die + {bonus}."
+            else:
+                roll_text = f"rolls {n_dice} dice + {bonus}."
+        except ValueError:
+            bonus = user_input[1:-1]
+            roll_text = f"rolls 4 dice + {bonus}."
+    elif "-" in user_input:
+        try:
+            n_dice, negative = user_input.split('-')
+            if n_dice == '1':
+                roll_text = f"rolls {n_dice} die - {negative}."
+            else:
+                roll_text = f"rolls {n_dice} dice - {negative}."
+        except ValueError:
+            negative = user_input[1:-1]
+            roll_text = f"rolls 4 dice - {negative}."
     return roll_text
 
 
