@@ -36,7 +36,7 @@ def ladder_text(success_count, ladder):
         return ladder[success_count]
 
 
-def calc_dice(n):
+def calc_dice(n="4"):
     str_n = str(n)
     if str_n.isnumeric():
         results = list(random.choice(["+", "-", " "], int(n)))
@@ -157,7 +157,7 @@ async def kill(ctx, character):
 
 @bot.command(name='fate', help='Roll Fate dice and optional modifier. Examples: /fate or /fate '
                                '+1 or /fate -2')
-async def dice(ctx, n_dice="4"):
+async def dice(ctx, n_dice):
     """Rolls FATE dice"""
     result = calc_dice(n_dice)
     emojis = dice_to_emoji(result[0])
