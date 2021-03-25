@@ -45,6 +45,10 @@ def calc_dice(n):
         n_dice, bonus = n.split("+")
         results = list(random.choice(["+", "-", " "], int(n_dice)))
         total = results.count("+") - results.count("-") + int(bonus)
+    elif "-" in str_n:
+        n_dice, negative = n.split("-")
+        results = list(random.choice(["+", "-", " "], int(n_dice)))
+        total = results.count("+") - results.count("-") - int(negative)
     return results, total
 
 
@@ -151,8 +155,8 @@ async def kill(ctx, character):
         await ctx.send(f"***{character}***? Never heard of them.")
 
 
-@bot.command(name='fate', help='Roll Fate dice and optional modifier. Examples: /fate 4 or /fate '
-                               '4+1 or /fate 4+-2')
+@bot.command(name='fate', help='Roll Fate dice and optional modifier. Examples: /fate or /fate '
+                               '+1 or /fate -2')
 async def dice(ctx, n_dice="4"):
     """Rolls FATE dice"""
     result = calc_dice(n_dice)
