@@ -91,6 +91,18 @@ def grammar(user_input):
     return roll_text
 
 
+def fate_results(user_input):
+    if user_input == "4":
+        roll_text = f"rolls 4 dice."
+    elif "-" in user_input:
+        negative = user_input[1:]
+        roll_text = f"rolls 4 dice - {negative}."
+    elif "+" in user_input:
+        bonus = user_input[1:]
+        roll_text = f"rolls 4 dice + {bonus}."
+    return roll_text
+
+
 fate_points = {}
 
 
@@ -173,7 +185,7 @@ async def dice(ctx, n_dice="4"):
     """Rolls FATE dice"""
     result = calc_dice(n_dice)
     emojis = dice_to_emoji(result[0])
-    roll_text = grammar(n_dice)
+    roll_text = fate_results(n_dice)
     user_id = ctx.message.author.display_name
     ladder_level = ladder_text(str(result[1]), ladders)
     await ctx.send(f"***{str(user_id)}*** {roll_text}\n"
