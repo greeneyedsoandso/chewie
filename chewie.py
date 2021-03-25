@@ -153,7 +153,7 @@ async def kill(ctx, character):
 
 @bot.command(name='fate', help='Roll Fate dice and optional modifier. Examples: /fate 4 or /fate '
                                '4+1 or /fate 4+-2')
-async def dice(ctx, n_dice):
+async def dice(ctx, n_dice="4"):
     """Rolls FATE dice"""
     result = calc_dice(n_dice)
     emojis = dice_to_emoji(result[0])
