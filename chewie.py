@@ -168,6 +168,13 @@ async def dice(ctx, n_dice="4"):
                    f"{emojis}\nTotal result: {str(result[1])}, **{ladder_level}**")
 
 
+@bot.command(name='Fate', help='Error handling/shaming')
+async def typo(ctx):
+    """Gives an error message"""
+    user_id = ctx.message.author.display_name
+    await ctx.send(f"***{str(user_id)}*** please try again with lower case")
+
+
 @bot.command(name='+fp', help='Grants a Fate point to the named character. Example: /+fp Han')
 async def add_fate_point(ctx, character):
     """Adds Fate point to character"""
